@@ -1,0 +1,43 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <input  #newTodo (keyup.enter)="addTodo(newTodo.value);newTodo.value=''"
+    class="new-todo"
+    autofocus=""
+    placeholder="What needs to be done?">
+  </header>
+  <section class="main">
+    <input id="toggle-all" class="toggle-all" type="checkbox" *ngIf="todos.length > 0" (click)="toggleAll()">
+    <label for="toggle-all" *ngIf="todos.length > 0">Mark all as complete</label>
+    <p *ngIf="todoDataService.todos.length === 0" class="no-todos">
+      You don't have any todos. Start adding now!
+    </p>
+
+    <div *ngIf="todoDataService.todos.length > 0">
+      <ul class="todo-list">
+          <li *ngFor="let todo of todos">
+              <app-todoitem [todo]="todo" (remove)="removeTodo($event)"></app-todoitem>
+          </li>
+      </ul>
+    </div>
+  </section>
+  <footer class="footer" *ngIf="todoDataService.todos.length > 0">
+      <span class="todo-count">
+        <strong>
+            {{ todoDataService.getRemaining().length }}
+        </strong>
+        {{ todoDataService.getRemaining().length > 1 ? 'items': 'item' }} left
+      </span>
+      <app-todofilter (visibilityChange)="onVisibilityChange($event)"></app-todofilter>
+      <button class="clear-completed" *ngIf="todoDataService.getCompleted().length > 0" (click)="clearCompleted()">
+        Clear Completed
+      </button>
+    </footer>
+</section>
+
+
+<section class="dump">
+  <p>
+    {{ todoDataService.todos | json }}
+  </p>
+</section>

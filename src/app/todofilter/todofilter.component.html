@@ -1,0 +1,5 @@
+<ul class="filters">
+    <li><a (click)="setVisibility('All')" [class.selected]="visibility === 'All'">All</a></li>
+    <li><a (click)="setVisibility('Active')" [class.selected]="visibility === 'Active'">Active</a></li>
+    <li><a (click)="setVisibility('Completed')" [class.selected]="visibility === 'Completed'">Completed</a></li>
+</ul>
